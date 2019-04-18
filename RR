@@ -34,7 +34,6 @@ int main()
 		process[i] = i+1;
 	}
 	int j;
-	
 	for (i=0; i<number_of_process-1; i++)
 	{
 		for (j=i+1; j<number_of_process; j++)
