@@ -1,99 +1,87 @@
-#include<stdio.h>
-#include<conio.h>
+#include <stdio.h>
+#include <conio.h>
 
 int main()
 {
-	int x;
-	int number_of_process;
-	int process[20];
-	int process_priority[20];
-	int burst_time[20];
-	int waiting_time[20];
-	int turn_around_time[20];
-	int average_waiting_time;
-	int average_turn_around_time;
-	int arrival_time[10];
-	int time_quantum;
-	printf("\t\tPRE-EMPTIVE ROUND ROBIN SCHEDULING WITH ARRIVAL TIME AND PRIORITY\t\n");
-	printf("\nEnter the number of processes: ");
-	scanf("%d",&number_of_process);
-	printf("enter the time quantum: ");
-	scanf("%d",&time_quantum);
-	printf("Enter the details for processes\n");
-	int i;
-	for (i=0; i<number_of_process; i++)
-	{
-	printf("Process%d\n",i+1);
-		printf("  Priority: ");
-		scanf("%d", &process_priority[i]);
-		printf("  Arrival Time: ");
-		scanf("%d", &arrival_time[i]);
-		printf("  Burst Time: ");
-		scanf("%d", &burst_time[i]);
-		printf("\n\n");
-		process[i] = i+1;
-	}
-	int j;
-	for (i=0; i<number_of_process-1; i++)
-	{
-		for (j=i+1; j<number_of_process; j++)
-		{
-			if(process_priority[i]<process_priority[j])
-			{
-				x = process_priority[i];
-				process_priority[i] = process_priority[j];
-				process_priority[j] = x;
-				x = burst_time[i];
-				burst_time[i] = burst_time[j];
-				burst_time[j] = x;
-				x = process[i];
-				process[i] = process[j];
-				process[j] = x;
-			}
-		}
-	}
+    int x;
+    int nofp;
+    int proc[20];
+    int prp[20];
+    int btime[20];
+    int wtime[20];
+    int turntime[20];
+    int avgwtime;
+    int avgturntime;
+    int atime[10];
+    int qtime;
+    printf("\t\t round robin scheduling(pre-emptive)\t\n");
+    printf("\nEnter the number of processes: ");
+    scanf("%d", &nofp);
+    printf("enter the time quantum: ");
+    scanf("%d", &qtime);
+    printf("Enter the details for processes\n");
+    int i;
+    for (i = 0; i < nofp; i++)
+    {
+        printf("Process%d\n", i + 1);
+        printf("  Priority: ");
+        scanf("%d", &prp[i]);
+        printf("  Arrival Time: ");
+        scanf("%d", &atime[i]);
+        printf("  Burst Time: ");
+        scanf("%d", &btime[i]);
+        printf("\n\n");
+        proc[i] = i + 1;
+    }
+    int j;
+    for (i = 0; i < nofp - 1; i++)
+    {
+        for (j = i + 1; j < nofp; j++)
+        {
+            if (prp[i] < prp[j])
+            {
+                x = prp[i];
+                prp[i] = prp[j];
+                prp[j] = x;
+                x = btime[i];
+                btime[i] = btime[j];
+                btime[j] = x;
+                x = proc[i];
+                proc[i] = proc[j];
+                proc[j] = x;
+            }
+        }
+    }
 
-waiting_time[0] = 0;
-average_waiting_time = 0;
-turn_around_time[0] = burst_time[0];
-average_turn_around_time = turn_around_time[0];
+    wtime[0] = 0;
+    avgwtime = 0;
+    turntime[0] = btime[0];
+    avgturntime = turntime[0];
 
-for(i=1; i<number_of_process; i++)
-{
-	if(time_quantum<number_of_process || time_quantum>number_of_process)
-	{
-		
-		waiting_time[i] = turn_around_time[i-1];
-		average_waiting_time += waiting_time[i];
-		turn_around_time[i] = waiting_time[i] + burst_time[i];
-		average_turn_around_time += turn_around_time[i];
-		 
-	}
-	
-	
-	printf("\n");
-	printf("Gantt chart\n");
-	for(i=0; i<number_of_process; i++)
-	{
-		printf("Process%d", process[i]);
-	}
-	
+    for (i = 1; i < nofp; i++)
+    {
+        if (qtime < nofp || qtime > nofp)
+        {
 
-	
-}	
-	
-	
-	printf("\nProcess_id |\tPriority |\tArrival Time |\tBurst Time | \t Waiting Time| \tTurn Around Time");
-	
-	
-	
-	for(i=0;i<number_of_process;i++)
-	{
-		printf("\n%d \t\t%d \t\t%d \t\t%d \t\t%d \t\t%d\n", i+1, process_priority[i], arrival_time[i], burst_time[i],waiting_time[i], turn_around_time[i]);
-		
-	}
-	printf("Average_waiting_time = %f\n Average_turn_around_time =%f\n\n", (float)average_waiting_time/number_of_process, (float)average_turn_around_time/number_of_process);
-		
-	
-	
+            wtime[i] = turntime[i - 1];
+            avgwtime += wtime[i];
+            turntime[i] = wtime[i] + btime[i];
+            avgturntime += turntime[i];
+        }
+
+        printf("\n");
+        printf("Gantt chart\n");
+        for (i = 0; i < nofp; i++)
+        {
+            printf("Process%d", proc[i]);
+        }
+    }
+
+    printf("\nP_ID |\tP_PRIORITY |\tP_ARRIVALTIME |\tP_BURSTTIME | \t P_WAITINGTIME| \tP_TURNAROUNDTIME");
+
+    for (i = 0; i < nofp; i++)
+    {
+        printf("\n%d \t\t%d \t\t%d \t\t%d \t\t%d \t\t%d\n", i + 1, prp[i], atime[i], btime[i], wtime[i], turntime[i]);
+    }
+    printf("Average_waiting_time = %f\n Average_turn_around_time =%f\n\n", (float)avgwtime / nofp, (float)avgturntime / nofp);
 }
