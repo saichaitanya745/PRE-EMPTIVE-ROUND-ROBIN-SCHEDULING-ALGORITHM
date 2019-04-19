@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <conio.h>
-
 int main()
 {
     int x;
@@ -62,13 +61,11 @@ int main()
     {
         if (qtime < nofp || qtime > nofp)
         {
-
             wtime[i] = turntime[i - 1];
             avgwtime += wtime[i];
             turntime[i] = wtime[i] + btime[i];
             avgturntime += turntime[i];
         }
-
         printf("\n");
         printf("Gantt chart\n");
         for (i = 0; i < nofp; i++)
@@ -76,9 +73,7 @@ int main()
             printf("Process%d", proc[i]);
         }
     }
-
     printf("\nP_ID |\tP_PRIORITY |\tP_ARRIVALTIME |\tP_BURSTTIME | \t P_WAITINGTIME| \tP_TURNAROUNDTIME");
-
     for (i = 0; i < nofp; i++)
     {
         printf("\n%d \t\t%d \t\t%d \t\t%d \t\t%d \t\t%d\n", i + 1, prp[i], atime[i], btime[i], wtime[i], turntime[i]);
